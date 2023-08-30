@@ -16,11 +16,17 @@ public class InverterLista {
 	public static void main(String[] args) {
 
 		int[] lista = { 1, 2, 3, 4, 5 };
-		System.out.println(lista[0] + " " + lista[1] + " " + lista[2] + " " + lista[3] + " " + lista[4]);
+		for (int aux = 0; aux < lista.length; aux++) {
+			System.out.print(lista[aux] + " ");
+		}
+		System.out.println();
+		
 		int j = lista.length - 1;
 		int[] nlista = inverter(lista, 0, j);
-		System.out.println(nlista[0] + " " + nlista[1] + " " + nlista[2] + " " + nlista[3] + " " + nlista[4]);
-
+		for (int aux = 0; aux < lista.length; aux++) {
+			System.out.print(nlista[aux] + " ");
+		}
+		System.out.println();
 	}
 
 }
