@@ -2,29 +2,43 @@ package a01;
 
 public class InverterLista {
 
-	private static int[] inverter(int[] lista, int i, int j) {
-		if (i >= j) {
+	private static int[] inverter(int[] lista, int aux) {
+		if (aux <= lista.length / 2) {
 			return lista;
 		} else {
+			int i = lista.length - 1 - aux;
+			int j = aux;
 			int num = lista[j];
 			lista[j] = lista[i];
 			lista[i] = num;
-			return inverter(lista, i + 1, j - 1);
+			return inverter(lista, aux - 1);
 		}
 	}
 
 	public static void main(String[] args) {
 
-		int[] lista = { 1, 2, 3, 4, 5 };
-		for (int aux = 0; aux < lista.length; aux++) {
-			System.out.print(lista[aux] + " ");
+		int[] lista1 = { 1, 2, 3, 4, 5 };
+		for (int aux = 0; aux < lista1.length; aux++) {
+			System.out.print(lista1[aux] + " ");
 		}
 		System.out.println();
-		
-		int j = lista.length - 1;
-		int[] nlista = inverter(lista, 0, j);
-		for (int aux = 0; aux < lista.length; aux++) {
-			System.out.print(nlista[aux] + " ");
+
+		int[] nlista1 = inverter(lista1, lista1.length - 1);
+		for (int aux = 0; aux < lista1.length; aux++) {
+			System.out.print(nlista1[aux] + " ");
+		}
+		System.out.println();
+		System.out.println();
+
+		int[] lista2 = { 1, 2, 3, 4, 5, 6 };
+		for (int aux = 0; aux < lista2.length; aux++) {
+			System.out.print(lista2[aux] + " ");
+		}
+		System.out.println();
+
+		int[] nlista2 = inverter(lista2, lista2.length - 1);
+		for (int aux = 0; aux < lista2.length; aux++) {
+			System.out.print(nlista2[aux] + " ");
 		}
 		System.out.println();
 	}
