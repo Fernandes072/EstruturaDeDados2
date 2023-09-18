@@ -3,6 +3,12 @@ package a03;
 import java.util.List;
 
 public class Programa {
+	
+	public static void imprimirLista(List<Nodo> lista) {
+		for (Nodo nodo : lista) {
+			System.out.println(nodo);
+		}
+	}
 
 	public static void main(String[] args) {
 
@@ -40,34 +46,15 @@ public class Programa {
 		aMotor.adicionaFilho(lancha);
 
 		System.out.println(veiculo);*/
-
-		/*System.out.println(aviao.pegaPai());
-		System.out.println();
-
-		Object[] filhos = veiculo.pegaFilhos();
-		for (Object object : filhos) {
-			System.out.println(object);
-		}
-		System.out.println();
-
-		System.out.println(veiculo.eRaiz());
-		System.out.println();
-
-		System.out.println(aMotor.eFolha());
-		System.out.println();
-
-		System.out.println(aereo.grau());
-		System.out.println();
-
-		System.out.println(iate.nivel());
-		System.out.println();
-
-		System.out.println("Contagem: " + iate.contagem());
-		System.out.println();
 		
-		System.out.println("Busca: " + veiculo.busca("Avião"));
-		System.out.println();
-		System.out.println(veiculo.contagem());*/
+		/*Nodo A = new Nodo("A");
+		Nodo B = new Nodo("B");
+		Nodo C = new Nodo("C");
+		Nodo D = new Nodo("D");
+		A.adicionaFilho(B);
+		A.adicionaFilho(C);
+		B.adicionaFilho(D);
+		System.out.println(A);*/
 		
 		Nodo A = new Nodo("A");
 		Nodo B = new Nodo("B");
@@ -88,11 +75,6 @@ public class Programa {
 		D.adicionaFilho(H);
 		H.adicionaFilho(I);
 		H.adicionaFilho(J);
-		System.out.println(A);
-		List<Nodo> irmaos = B.irmaos();
-		for (Nodo irmao : irmaos) {
-			System.out.println(irmao);
-		}
 		System.out.println(A);
 	}
 

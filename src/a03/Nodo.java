@@ -37,18 +37,12 @@ public class Nodo {
 		filho.setPai(this);
 	}
 
-	public Object[] pegaFilhos() {
-		Object[] filhos = new Object[this.filhos.size()];
-		int i = 0;
-		for (Nodo nodo : this.filhos) {
-			filhos[i] = nodo.getDado();
-			i++;
-		}
+	public List<Nodo> pegaFilhos() {
 		return filhos;
 	}
 
-	public Object pegaPai() {
-		return pai.getDado();
+	public Nodo pegaPai() {
+		return pai;
 	}
 
 	public boolean eRaiz() {
@@ -88,8 +82,8 @@ public class Nodo {
 	}
 
 	public int contagem() {
-		//return contarNodos(raiz(this), 1); para contar todos os elementos
-		return contarNodos(this, 1); //conta os elementos do nó
+		// return contarNodos(raiz(this), 1); para contar todos os elementos
+		return contarNodos(this, 1); // conta os elementos do nó
 	}
 
 	private static int contarNodos(Nodo nodo, int cont) {
@@ -117,15 +111,15 @@ public class Nodo {
 		}
 		return elemento;
 	}
-	
+
 	public void remove(Nodo nodo) {
 		nodo.pai.filhos.remove(nodo);
 	}
-	
+
 	public List<Nodo> irmaos() {
 		List<Nodo> irmaos = new ArrayList<Nodo>();
 		for (Nodo irmao : pai.filhos) {
-			if(irmao != this) {
+			if (irmao != this) {
 				irmaos.add(irmao);
 			}
 		}
@@ -157,21 +151,15 @@ public class Nodo {
 	}
 
 	private static void prepararString2(Nodo nodo, StringBuilder sb, int nivel) {
-		if (!nodo.eFolha()) {
-			sb.append("(");
-		}
+		sb.append("(");
 		sb.append(nodo.dado.toString());
 		if (!nodo.eFolha()) {
 			sb.append("(");
-		}
-		for (Nodo filho : nodo.filhos) {
-			prepararString2(filho, sb, nivel + 1);
-		}
-		if (!nodo.eFolha()) {
+			for (Nodo filho : nodo.filhos) {
+				prepararString2(filho, sb, nivel + 1);
+			}
 			sb.append(")");
 		}
-		if (!nodo.eFolha()) {
-			sb.append(")");
-		}
+		sb.append(")");
 	}
 }
