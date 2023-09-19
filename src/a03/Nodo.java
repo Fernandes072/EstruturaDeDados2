@@ -103,7 +103,6 @@ public class Nodo {
 
 	private static Nodo encontrarBusca(Nodo nodo, Object info, Nodo elemento) {
 		if (info.equals(nodo.dado)) {
-			System.out.println("achou");
 			return nodo;
 		}
 		for (Nodo filho : nodo.filhos) {
@@ -136,6 +135,7 @@ public class Nodo {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		prepararString(this, sb, 0);
+		//prepararString(this,sb);
 		return sb.toString();
 	}
 
@@ -150,15 +150,19 @@ public class Nodo {
 		}
 	}
 
-	private static void prepararString2(Nodo nodo, StringBuilder sb, int nivel) {
+	private static void prepararString(Nodo nodo, StringBuilder sb) {
 		sb.append("(");
 		sb.append(nodo.dado.toString());
 		if (!nodo.eFolha()) {
-			sb.append("(");
-			for (Nodo filho : nodo.filhos) {
-				prepararString2(filho, sb, nivel + 1);
+			if (nodo.filhos.size() > 1) {
+				sb.append("(");
 			}
-			sb.append(")");
+			for (Nodo filho : nodo.filhos) {
+				prepararString(filho, sb);
+			}
+			if (nodo.filhos.size() > 1) {
+				sb.append(")");
+			}
 		}
 		sb.append(")");
 	}
