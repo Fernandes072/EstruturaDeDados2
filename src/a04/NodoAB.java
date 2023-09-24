@@ -43,8 +43,6 @@ public class NodoAB {
 		this.filhoDireito = filhoDireito;
 	}
 	
-	
-	
 	@Override
 	public boolean equals(Object obj) {
 		boolean resultado = false;
@@ -65,7 +63,10 @@ public class NodoAB {
 	}
 	
 	private void MontaString(NodoAB nodo, StringBuilder sb) {
-		sb.append(nodo.getInfo()+"\n");
+		if (!nodo.equals(this)) {
+			sb.append(" ");
+		}
+		sb.append(nodo.getInfo());
 		if (nodo.getFilhoEsquerdo() != null) {
 			MontaString(nodo.getFilhoEsquerdo(), sb);
 		}
