@@ -1,5 +1,8 @@
 package a04.observer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArvoreBinaria {
 
 	private NodoAB raiz;
@@ -105,7 +108,7 @@ public class ArvoreBinaria {
 	public NodoAB busca(Object info) {
 		return pegaBusca(raiz, info, new NodoAB(null));
 	}
-	
+
 	private NodoAB pegaBusca(NodoAB nodo, Object info, NodoAB elemento) {
 		if (nodo.getInfo().equals(info)) {
 			return nodo;
@@ -158,6 +161,29 @@ public class ArvoreBinaria {
 		}
 		return novaArvore;
 	}
+	
+	public boolean vazia() {
+		return raiz == null;
+	}
+	
+	public boolean eRaiz(NodoAB nodo) {
+		return nodo.getPai() == null;
+	}
+	
+	public boolean eFolha(NodoAB nodo) {
+		return nodo.getFilhoEsquerdo() == null && nodo.getFilhoDireito() == null;
+	}
+	
+	public NodoAB pai(NodoAB nodo) {
+		return nodo.getPai();
+	}
+	
+	public List<NodoAB> filhos(NodoAB nodo){
+		List<NodoAB> filhos = new ArrayList<>();
+		filhos.add(nodo.getFilhoEsquerdo());
+		filhos.add(nodo.getFilhoDireito());
+		return filhos;
+	}
 
 	@Override
 	public String toString() {
@@ -169,23 +195,25 @@ public class ArvoreBinaria {
 	}
 
 	private void MontaString(NodoAB nodo, StringBuilder sb) {
-		if (nodo.getPai() != null) {
-			sb.append(" ");
+		if (nodo.getFilhoEsquerdo() != null && nodo.getFilhoDireito() != null) {
+			sb.append("(");
 		}
-		sb.append(nodo.getInfo());
 		if (nodo.getFilhoEsquerdo() != null) {
 			MontaString(nodo.getFilhoEsquerdo(), sb);
 		}
+		sb.append(nodo.getInfo());
 		if (nodo.getFilhoDireito() != null) {
 			MontaString(nodo.getFilhoDireito(), sb);
 		}
-
+		if (nodo.getFilhoEsquerdo() != null && nodo.getFilhoDireito() != null) {
+			sb.append(")");
+		}
 	}
-	
+
 	public void travessiaPreOrdem(Visitante visitante) {
 		travessiaPreOrdem(raiz, visitante);
 	}
-	
+
 	private void travessiaPreOrdem(NodoAB nodo, Visitante visitante) {
 		if (nodo != null) {
 			visitante.visita(nodo);
@@ -197,4 +225,63 @@ public class ArvoreBinaria {
 			travessiaPreOrdem(nodo.getFilhoDireito(), visitante);
 		}
 	}
+
+	public void travessiaEmOrdem(Visitante visitante) {
+		travessiaEmOrdem(raiz, visitante);
+	}
+
+	private void travessiaEmOrdem(NodoAB nodo, Visitante visitante) {
+		if (nodo.getFilhoEsquerdo() != null) {
+			travessiaEmOrdem(nodo.getFilhoEsquerdo(), visitante);
+		}
+		if (nodo != null) {
+			visitante.visita(nodo);
+		}
+		if (nodo.getFilhoDireito() != null) {
+			travessiaEmOrdem(nodo.getFilhoDireito(), visitante);
+		}
+	}
+
+	public void travessiaPosOrdem(Visitante visitante) {
+		travessiaPosOrdem(raiz, visitante);
+	}
+
+	private void travessiaPosOrdem(NodoAB nodo, Visitante visitante) {
+		if (nodo.getFilhoEsquerdo() != null) {
+			travessiaPosOrdem(nodo.getFilhoEsquerdo(), visitante);
+		}
+		if (nodo.getFilhoDireito() != null) {
+			travessiaPosOrdem(nodo.getFilhoDireito(), visitante);
+		}
+		if (nodo != null) {
+			visitante.visita(nodo);
+		}
+	}
+
+	/*
+	 * public int soma() { if (raiz != null) { return montaSoma(raiz, 0, "", 0); }
+	 * return 0; }
+	 * 
+	 * 
+	 * private int MontaSoma(NodoAB nodo, int total, String operacao, int esq) {
+	 * 
+	 * if (nodo.getFilhoEsquerdo() != null) { total =
+	 * MontaSoma(nodo.getFilhoEsquerdo(), total, operacao, esq); } if
+	 * (!nodo.getInfo().equals("+") && !nodo.getInfo().equals("x") &&
+	 * !nodo.getInfo().equals("/") && !nodo.getInfo().equals("-")) { if
+	 * (nodo.getPai().getFilhoEsquerdo().equals(nodo)) { esq =
+	 * Integer.parseInt(nodo.getInfo().toString()); if
+	 * (nodo.getPai().getInfo().equals("+")) { total += esq +
+	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } else if
+	 * (nodo.getPai().getInfo().equals("-")) { total += esq -
+	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } else if
+	 * (nodo.getPai().getInfo().equals("x")) { total += esq *
+	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } else if
+	 * (nodo.getPai().getInfo().equals("/")) { total += esq /
+	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } } operacao =
+	 * nodo.getPai().toString(); } if (nodo.getFilhoDireito() != null) { total =
+	 * MontaSoma(nodo.getFilhoDireito(), total, operacao, esq); } return total;
+	 * 
+	 * }
+	 */
 }
