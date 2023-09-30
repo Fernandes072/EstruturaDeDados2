@@ -57,11 +57,13 @@ public class ArvoreBinaria {
 			NodoAB pai = nodo.getPai();
 			if (pai.getFilhoEsquerdo() != null) {
 				if (pai.getFilhoEsquerdo().equals(nodo)) {
+					nodo.setPai(null);
 					pai.setFilhoEsquerdo(null);
 				}
 			}
 			if (pai.getFilhoDireito() != null) {
 				if (pai.getFilhoDireito().equals(nodo)) {
+					nodo.setPai(null);
 					pai.setFilhoDireito(null);
 				}
 			}
@@ -260,100 +262,37 @@ public class ArvoreBinaria {
 
 	public int operacao() {
 		if (raiz != null) {
-			return montaSoma(raiz, 0, "", 0);
+			return montaOperacao(raiz, 0);
 		}
 		return 0;
 	}
 
-	private int montaSoma(NodoAB nodo, int total, String operacao, int esq) {
-		if (nodo.getInfo().equals("+") || nodo.getInfo().equals("x") || nodo.getInfo().equals("/")
+	private int montaOperacao(NodoAB nodo, int total) {
+		int esq = 0;
+		int dir = 0;
+		if (nodo.getInfo().equals("+") || nodo.getInfo().equals("*") || nodo.getInfo().equals("/")
 				|| nodo.getInfo().equals("-")) {
-			operacao = nodo.getInfo().toString();
-		}
-
-		if (!nodo.getInfo().equals("+") && !nodo.getInfo().equals("x") && !nodo.getInfo().equals("/")
-				&& !nodo.getInfo().equals("-")) {
-			if (nodo.getPai().getFilhoEsquerdo().equals(nodo)) {
-				esq = Integer.parseInt(nodo.getInfo().toString());
-				return esq;
+			if (nodo.getFilhoEsquerdo() != null) {
+				esq = montaOperacao(nodo.getFilhoEsquerdo(), total);
 			}
+		} else {
+			return Integer.parseInt(nodo.getInfo().toString());
 		}
 
-		if (!nodo.getInfo().equals("+") && !nodo.getInfo().equals("x") && !nodo.getInfo().equals("/")
-				&& !nodo.getInfo().equals("-")) {
-			if (nodo.getPai().getFilhoDireito().equals(nodo)) {
-				if (operacao.equals("+")) {
-					total += esq + Integer.parseInt(nodo.getInfo().toString());
-				} else if (operacao.equals("-")) {
-					total += esq - Integer.parseInt(nodo.getInfo().toString());
-				}
-			}
-		}
-
-		if (nodo.getFilhoEsquerdo() != null) {
-			total = montaSoma(nodo.getFilhoEsquerdo(), total, operacao, esq);
-		}
 		if (nodo.getFilhoDireito() != null) {
-			total = montaSoma(nodo.getFilhoDireito(), total, operacao, esq);
+			dir = montaOperacao(nodo.getFilhoDireito(), total);
 		}
-		
+
+		if (nodo.getInfo().equals("+")) {
+			total += esq + dir;
+		} else if (nodo.getInfo().equals("-")) {
+			total += esq - dir;
+		} else if (nodo.getInfo().equals("*")) {
+			total += esq * dir;
+		} else if (nodo.getInfo().equals("/")) {
+			total += esq / dir;
+		}
+
 		return total;
-
 	}
-
-	/*
-	 * private int montaSoma(NodoAB nodo, int total, String operacao, int esq) { if
-	 * (nodo.getInfo().equals("+") || nodo.getInfo().equals("x") ||
-	 * nodo.getInfo().equals("/") || nodo.getInfo().equals("-")) { operacao =
-	 * nodo.getInfo().toString(); }
-	 * 
-	 * if (!nodo.getInfo().equals("+") && !nodo.getInfo().equals("x") &&
-	 * !nodo.getInfo().equals("/") && !nodo.getInfo().equals("-")) { if
-	 * (nodo.getPai().getFilhoEsquerdo().equals(nodo)) { esq =
-	 * Integer.parseInt(nodo.getInfo().toString()); return esq; }
-	 * 
-	 * }
-	 * 
-	 * if (nodo.getFilhoEsquerdo() != null) { total =
-	 * montaSoma(nodo.getFilhoEsquerdo(), total, operacao, esq); } if
-	 * (nodo.getFilhoDireito() != null) { total = montaSoma(nodo.getFilhoDireito(),
-	 * total, operacao, esq); } if (!nodo.getInfo().equals("+") &&
-	 * !nodo.getInfo().equals("x") && !nodo.getInfo().equals("/") &&
-	 * !nodo.getInfo().equals("-")) { if
-	 * (nodo.getPai().getFilhoDireito().equals(nodo)) { if (operacao.equals("+")) {
-	 * total += esq + Integer.parseInt(nodo.toString()); } else if
-	 * (operacao.equals("-")) { total += esq - Integer.parseInt(nodo.toString()); }
-	 * else if (operacao.equals("x")) { total += esq *
-	 * Integer.parseInt(nodo.toString()); } else if (operacao.equals("/")) { total
-	 * += esq / Integer.parseInt(nodo.toString()); } } } return total;
-	 * 
-	 * }
-	 */
-
-	/*
-	 * public int soma() { if (raiz != null) { return montaSoma(raiz, 0, "", 0); }
-	 * return 0; }
-	 * 
-	 * 
-	 * private int MontaSoma(NodoAB nodo, int total, String operacao, int esq) {
-	 * 
-	 * if (nodo.getFilhoEsquerdo() != null) { total =
-	 * MontaSoma(nodo.getFilhoEsquerdo(), total, operacao, esq); } if
-	 * (!nodo.getInfo().equals("+") && !nodo.getInfo().equals("x") &&
-	 * !nodo.getInfo().equals("/") && !nodo.getInfo().equals("-")) { if
-	 * (nodo.getPai().getFilhoEsquerdo().equals(nodo)) { esq =
-	 * Integer.parseInt(nodo.getInfo().toString()); if
-	 * (nodo.getPai().getInfo().equals("+")) { total += esq +
-	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } else if
-	 * (nodo.getPai().getInfo().equals("-")) { total += esq -
-	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } else if
-	 * (nodo.getPai().getInfo().equals("x")) { total += esq *
-	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } else if
-	 * (nodo.getPai().getInfo().equals("/")) { total += esq /
-	 * Integer.parseInt(nodo.getPai().getFilhoDireito().toString()); } } operacao =
-	 * nodo.getPai().toString(); } if (nodo.getFilhoDireito() != null) { total =
-	 * MontaSoma(nodo.getFilhoDireito(), total, operacao, esq); } return total;
-	 * 
-	 * }
-	 */
 }
