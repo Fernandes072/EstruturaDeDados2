@@ -15,8 +15,8 @@ public class Programa {
 		arvore.adiciona(180f);
 		System.out.println(arvore);
 		System.out.println();
-		System.out.println(arvore.minimo());
-		System.out.println(arvore.maximo());
+		arvore.remover(arvore.busca(20f));
+		System.out.println(arvore);
 		
 	}
 }
