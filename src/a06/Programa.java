@@ -13,6 +13,7 @@ public class Programa {
 		arvore.adiciona(100f);
 		arvore.adiciona(90f);
 		arvore.adiciona(180f);
+		arvore.adiciona(15f);
 		System.out.println(arvore);
 		System.out.println();
 		arvore.remover(arvore.busca(20f));

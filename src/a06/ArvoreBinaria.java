@@ -172,7 +172,7 @@ public class ArvoreBinaria {
 		}
 		return null;
 	}
-	
+
 	public void remover(NodoAB nodo) {
 		if (nodo.getEsquerdo() == null && nodo.getDireito() == null) {
 			if (nodo.getInfo().equals(nodo.getPai().getEsquerdo().getInfo())) {
@@ -200,25 +200,26 @@ public class ArvoreBinaria {
 			while (resultado.getDireito() != null) {
 				resultado = resultado.getDireito();
 			}
-			resultado.setEsquerdo(nodo.getEsquerdo());
-			resultado.setDireito(nodo.getDireito());
-			resultado.setPai(nodo.getPai());
-			if (resultado.getInfo().equals(resultado.getPai().getEsquerdo().getInfo())) {
-				resultado.getPai().setEsquerdo(null);
-			} else {
-				resultado.getPai().setDireito(null);
+			if (resultado.getEsquerdo() == null && resultado.getDireito() == null) {
+				if (resultado.getInfo().equals(resultado.getPai().getEsquerdo().getInfo())) {
+					resultado.getPai().setEsquerdo(null);
+				} else {
+					resultado.getPai().setDireito(null);
+				}
+				nodo.getEsquerdo().setPai(resultado);
+				nodo.getDireito().setPai(resultado);
+				if (nodo.getInfo().equals(nodo.getPai().getEsquerdo().getInfo())) {
+					nodo.getPai().setEsquerdo(resultado);
+				} else {
+					nodo.getPai().setDireito(resultado);
+				}
+				resultado.setEsquerdo(nodo.getEsquerdo());
+				resultado.setDireito(nodo.getDireito());
+				resultado.setPai(nodo.getPai());
+				nodo.setDireito(null);
+				nodo.setEsquerdo(null);
+				nodo.setPai(null);
 			}
-			nodo.getEsquerdo().setPai(resultado);
-			nodo.getDireito().setPai(resultado);
-			if (nodo.getInfo().equals(nodo.getPai().getEsquerdo().getInfo())) {
-				nodo.getPai().setEsquerdo(resultado);
-			} else {
-				nodo.getPai().setDireito(resultado);
-			}
-			
-			nodo.setDireito(null);
-			nodo.setEsquerdo(null);
-			nodo.setPai(null);
 		}
 	}
 
