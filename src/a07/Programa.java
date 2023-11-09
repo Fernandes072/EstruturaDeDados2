@@ -14,10 +14,8 @@ public class Programa {
 		arvore.adiciona(100);
 		arvore.adiciona(180);
 		arvore.adiciona(90);
-		System.out.println(arvore);
+		System.out.println(arvore.sucessor(arvore.busca(30)));
 		
-	
-		System.out.println(arvore.minimo());
 
 	}
 
