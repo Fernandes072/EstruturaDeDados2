@@ -1,15 +1,15 @@
-package prova1;
+package a09;
 
-public class ArvoreBinariaBusca {
+public class ArvoreAVL {
 
-	private Nodo raiz;
+	private NodoAVL raiz;
 	private int tamanho;
 
-	public ArvoreBinariaBusca() {
+	public ArvoreAVL() {
 
 	}
 
-	public Nodo raiz() {
+	public NodoAVL raiz() {
 		return raiz;
 	}
 
@@ -17,80 +17,51 @@ public class ArvoreBinariaBusca {
 		return tamanho;
 	}
 
-	public void organiza() {
-		int posicao = (int) tamanho / 2;
-		Nodo novaRaiz = encontrar(raiz, posicao, 0);
-		System.out.println(novaRaiz);
-		ArvoreBinariaBusca novaArvore = new ArvoreBinariaBusca();
-		novaArvore.adiciona(novaRaiz.getInfo());
-		novaArvore.organiza(novaArvore, raiz);
-		System.out.println(novaArvore);
-
-	}
-	
-	public ArvoreBinariaBusca organiza(ArvoreBinariaBusca novaArvore, Nodo nodo) {
-		novaArvore.adiciona(nodo.getInfo());
-		if (nodo.getEsquerdo() != null) {
-			organiza(novaArvore, nodo.getEsquerdo());
-		}
-		if (nodo.getDireito() != null) {
-			organiza(novaArvore, nodo.getDireito());
-		}
-		return novaArvore;
-	}
-	
-
-	private Nodo encontrar(Nodo nodo, int posicao, int i) {
-		i++;
-		if (posicao == i) {
-			return nodo;
-		}
-		if (nodo.getEsquerdo() != null) {
-			return encontrar(nodo.getEsquerdo(), posicao, i);
-		}
-		if (nodo.getDireito() != null) {
-			return encontrar(nodo.getDireito(), posicao, i);
-		}
-		return null;
-	}
-
 	public void adiciona(Comparable info) {
 		if (raiz == null) {
-			Nodo novoNodo = new Nodo(info);
+			NodoAVL novoNodo = new NodoAVL(info);
 			raiz = novoNodo;
 			tamanho++;
+			raiz.atualizaAltura();
 		} else {
 			adiciona(info, raiz);
+			raiz.atualizaAltura();
 		}
 	}
 
-	private void adiciona(Comparable info, Nodo nodo) {
+	private void adiciona(Comparable info, NodoAVL nodo) {
 		if (info.compareTo(nodo.getInfo()) > 0) {
 			if (nodo.getDireito() == null) {
-				Nodo novoNodo = new Nodo(info);
+				NodoAVL novoNodo = new NodoAVL(info);
 				nodo.setDireito(novoNodo);
 				novoNodo.setPai(nodo);
 				tamanho++;
+				novoNodo.atualizaAltura();
+				nodo.atualizaAltura();
 				return;
 			}
 			adiciona(info, nodo.getDireito());
+			nodo.atualizaAltura();
 		} else if (info.compareTo(nodo.getInfo()) < 0) {
 			if (nodo.getEsquerdo() == null) {
-				Nodo novoNodo = new Nodo(info);
+				NodoAVL novoNodo = new NodoAVL(info);
 				nodo.setEsquerdo(novoNodo);
 				novoNodo.setPai(nodo);
 				tamanho++;
+				novoNodo.atualizaAltura();
+				nodo.atualizaAltura();
 				return;
 			}
 			adiciona(info, nodo.getEsquerdo());
+			nodo.atualizaAltura();
 		}
 	}
 
-	public Nodo busca(Comparable info) {
+	public NodoAVL busca(Comparable info) {
 		return busca(info, raiz);
 	}
 
-	private Nodo busca(Comparable info, Nodo nodo) {
+	private NodoAVL busca(Comparable info, NodoAVL nodo) {
 		if (nodo != null) {
 			if (info.compareTo(nodo.getInfo()) == 0) {
 				return nodo;
@@ -105,11 +76,11 @@ public class ArvoreBinariaBusca {
 		return null;
 	}
 
-	public Nodo minimo() {
+	public NodoAVL minimo() {
 		return raiz.getMenor();
 	}
 
-	public Nodo maximo() {
+	public NodoAVL maximo() {
 		return raiz.getMaior();
 	}
 
@@ -117,7 +88,7 @@ public class ArvoreBinariaBusca {
 		return raiz.contagem();
 	}
 
-	public Nodo sucessor(Nodo nodo) {
+	public NodoAVL sucessor(NodoAVL nodo) {
 		if (nodo != null) {
 			if (nodo == maximo()) {
 				return null;
@@ -127,7 +98,7 @@ public class ArvoreBinariaBusca {
 					return nodo.getDireito();
 				}
 				if (nodo.getDireito().getEsquerdo() != null) {
-					Nodo resultado = nodo.getDireito();
+					NodoAVL resultado = nodo.getDireito();
 					while (resultado.getEsquerdo() != null) {
 						resultado = resultado.getEsquerdo();
 					}
@@ -142,7 +113,7 @@ public class ArvoreBinariaBusca {
 				}
 				if (nodo.getPai().getDireito() != null) {
 					if (nodo == nodo.getPai().getDireito()) {
-						Nodo resultado = nodo;
+						NodoAVL resultado = nodo;
 						while (resultado.getPai() != null) {
 							if (resultado.getPai().getEsquerdo() != null) {
 								if (resultado == resultado.getPai().getEsquerdo()) {
@@ -159,7 +130,7 @@ public class ArvoreBinariaBusca {
 		return null;
 	}
 
-	public Nodo predecessor(Nodo nodo) {
+	public NodoAVL predecessor(NodoAVL nodo) {
 		if (nodo != null) {
 			if (nodo == minimo()) {
 				return null;
@@ -169,7 +140,7 @@ public class ArvoreBinariaBusca {
 					return nodo.getEsquerdo();
 				}
 				if (nodo.getEsquerdo().getDireito() != null) {
-					Nodo resultado = nodo.getEsquerdo();
+					NodoAVL resultado = nodo.getEsquerdo();
 					while (resultado.getDireito() != null) {
 						resultado = resultado.getDireito();
 					}
@@ -184,7 +155,7 @@ public class ArvoreBinariaBusca {
 				}
 				if (nodo.getPai().getEsquerdo() != null) {
 					if (nodo == nodo.getPai().getEsquerdo()) {
-						Nodo resultado = nodo;
+						NodoAVL resultado = nodo;
 						while (resultado.getPai() != null) {
 							if (resultado.getPai().getDireito() != null) {
 								if (resultado == resultado.getPai().getDireito()) {
@@ -202,13 +173,13 @@ public class ArvoreBinariaBusca {
 	}
 
 	public void remove(Comparable info) {
-		Nodo nodo = busca(info);
+		NodoAVL nodo = busca(info);
 		if (nodo != null) {
 			remove(nodo);
 		}
 	}
 
-	public void remove(Nodo nodo) {
+	public void remove(NodoAVL nodo) {
 		if (nodo.getEsquerdo() == null && nodo.getDireito() == null) {
 			if (nodo == raiz) {
 				raiz = null;
@@ -221,7 +192,7 @@ public class ArvoreBinariaBusca {
 				nodo.setPai(null);
 			}
 		} else if (nodo.getEsquerdo() == null || nodo.getDireito() == null) {
-			Nodo filho;
+			NodoAVL filho;
 			if (nodo.getEsquerdo() != null) {
 				filho = nodo.getEsquerdo();
 				nodo.setEsquerdo(null);
@@ -232,7 +203,7 @@ public class ArvoreBinariaBusca {
 			if (nodo == raiz) {
 				raiz = filho;
 			} else {
-				Nodo pai = nodo.getPai();
+				NodoAVL pai = nodo.getPai();
 				if (nodo == pai.getEsquerdo()) {
 					pai.setEsquerdo(filho);
 				} else {
@@ -242,7 +213,7 @@ public class ArvoreBinariaBusca {
 				nodo.setPai(null);
 			}
 		} else {
-			Nodo escolhido = nodo.getDireito().getMenor();
+			NodoAVL escolhido = nodo.getDireito().getMenor();
 			remove(escolhido);
 			troca(nodo, escolhido);
 			if (nodo == raiz) {
@@ -251,7 +222,7 @@ public class ArvoreBinariaBusca {
 		}
 	}
 
-	private void troca(Nodo velho, Nodo novo) {
+	private void troca(NodoAVL velho, NodoAVL novo) {
 		// Troca as referêncis do nodo antigo pelo novo
 		novo.setPai(velho.getPai());
 		novo.setEsquerdo(velho.getEsquerdo());
@@ -267,12 +238,12 @@ public class ArvoreBinariaBusca {
 		}
 	}
 
-	public ArvoreBinariaBusca copia() {
-		ArvoreBinariaBusca novaArvore = new ArvoreBinariaBusca();
+	public ArvoreAVL copia() {
+		ArvoreAVL novaArvore = new ArvoreAVL();
 		return criaArvoreCopia(novaArvore, raiz);
 	}
 
-	private ArvoreBinariaBusca criaArvoreCopia(ArvoreBinariaBusca novaArvore, Nodo nodo) {
+	private ArvoreAVL criaArvoreCopia(ArvoreAVL novaArvore, NodoAVL nodo) {
 		novaArvore.adiciona(nodo.getInfo());
 
 		if (nodo.getEsquerdo() != null) {
@@ -288,7 +259,7 @@ public class ArvoreBinariaBusca {
 		travessiaPreOrdem(raiz, visitante);
 	}
 
-	private void travessiaPreOrdem(Nodo nodo, Visitante visitante) {
+	private void travessiaPreOrdem(NodoAVL nodo, Visitante visitante) {
 		if (nodo != null) {
 			visitante.visita(nodo);
 
@@ -306,7 +277,7 @@ public class ArvoreBinariaBusca {
 		travessiaEmOrdem(raiz, visitante);
 	}
 
-	private void travessiaEmOrdem(Nodo nodo, Visitante visitante) {
+	private void travessiaEmOrdem(NodoAVL nodo, Visitante visitante) {
 		if (nodo != null) {
 			if (nodo.getEsquerdo() != null) {
 				travessiaPreOrdem(nodo.getEsquerdo(), visitante);
@@ -324,7 +295,7 @@ public class ArvoreBinariaBusca {
 		travessiaPosOrdem(raiz, visitante);
 	}
 
-	private void travessiaPosOrdem(Nodo nodo, Visitante visitante) {
+	private void travessiaPosOrdem(NodoAVL nodo, Visitante visitante) {
 		if (nodo != null) {
 			if (nodo.getEsquerdo() != null) {
 				travessiaPosOrdem(nodo.getEsquerdo(), visitante);
@@ -345,7 +316,7 @@ public class ArvoreBinariaBusca {
 		return sb.toString();
 	}
 
-	private void montaString(Nodo nodo, StringBuilder sb, int nivel, String posicao) {
+	private void montaString(NodoAVL nodo, StringBuilder sb, int nivel, String posicao) {
 		for (int i = 0; i < nivel; i++) {
 			sb.append("  ");
 		}
