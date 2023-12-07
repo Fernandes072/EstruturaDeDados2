@@ -83,7 +83,14 @@ public class ArvoreAVL {
 	}
 
 	private void rotacaoDuplaDireita(NodoAVL nodo) {
-		rotacaoEsquerda(nodo.getEsquerdo());
+		NodoAVL filhoEsquerdo = nodo.getEsquerdo();
+		NodoAVL direito = filhoEsquerdo.getDireito();
+		nodo.setEsquerdo(direito);
+		filhoEsquerdo.setDireito(null);
+		filhoEsquerdo.setPai(direito);
+		direito.setPai(null);
+		direito.setEsquerdo(filhoEsquerdo);
+		
 		rotacaoDireita(nodo);
 	}
 
@@ -122,9 +129,15 @@ public class ArvoreAVL {
 	}
 
 	private void rotacaoDuplaEsquerda(NodoAVL nodo) {
-		rotacaoDireita(nodo.getDireito());
+		NodoAVL filhoDireito = nodo.getDireito();
+		NodoAVL esquerdo = filhoDireito.getEsquerdo();
+		nodo.setDireito(esquerdo);
+		filhoDireito.setEsquerdo(null);
+		filhoDireito.setPai(esquerdo);
+		esquerdo.setPai(null);
+		esquerdo.setDireito(filhoDireito);
+		
 		rotacaoEsquerda(nodo);
-
 	}
 
 	private void rotacaoEsquerda(NodoAVL nodo) {

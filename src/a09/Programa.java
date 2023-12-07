@@ -25,13 +25,19 @@ public class Programa {
 		 * arvore.adiciona(0.3f); System.out.println(arvore);
 		 */
 		
-		arvore.adiciona(37f);
+		arvore.adiciona(50f);
 		System.out.println(arvore);
 		
-		arvore.adiciona(20f);
+		arvore.adiciona(60f);
 		System.out.println(arvore);
 		
-		arvore.adiciona(30f);
+		arvore.adiciona(55f);
+		System.out.println(arvore);
+		
+		arvore.adiciona(70f);
+		System.out.println(arvore);
+		
+		arvore.adiciona(65f);
 		System.out.println(arvore);
 
 	}
