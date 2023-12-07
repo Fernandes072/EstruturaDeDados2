@@ -38,10 +38,12 @@ public class ArvoreAVL {
 				tamanho++;
 				novoNodo.atualizaAltura();
 				nodo.atualizaAltura();
+				balancear(nodo);
 				return;
 			}
 			adiciona(info, nodo.getDireito());
 			nodo.atualizaAltura();
+			balancear(nodo);
 		} else if (info.compareTo(nodo.getInfo()) < 0) {
 			if (nodo.getEsquerdo() == null) {
 				NodoAVL novoNodo = new NodoAVL(info);
@@ -50,10 +52,112 @@ public class ArvoreAVL {
 				tamanho++;
 				novoNodo.atualizaAltura();
 				nodo.atualizaAltura();
+				balancear(nodo);
 				return;
 			}
 			adiciona(info, nodo.getEsquerdo());
 			nodo.atualizaAltura();
+			balancear(nodo);
+		}
+	}
+
+	private NodoAVL balancear(NodoAVL nodo) {
+		int fator = nodo.getFator();
+		if (fator == 2) { // Desbalanceado para a direita;
+			// Balancear
+			if (nodo.getDireito().getFator() > 0) {
+				rotacaoEsquerda(nodo);
+			} else {
+				rotacaoDuplaEsquerda(nodo);
+			}
+		} else if (fator == -2) { // Desbalanceado para a esquerda;
+			// Balancear
+			if (nodo.getEsquerdo().getFator() < 0) {
+				rotacaoDireita(nodo);
+			} else {
+				rotacaoDuplaDireita(nodo);
+			}
+		}
+		nodo.atualizaAltura();
+		return nodo;
+	}
+
+	private void rotacaoDuplaDireita(NodoAVL nodo) {
+		rotacaoEsquerda(nodo.getEsquerdo());
+		rotacaoDireita(nodo);
+	}
+
+	private void rotacaoDireita(NodoAVL nodo) {
+		NodoAVL filhoEsquerdo = nodo.getEsquerdo();
+		NodoAVL pai = nodo.getPai();
+		if (filhoEsquerdo.getDireito() == null) {
+			if (pai != null) {
+				pai.setEsquerdo(filhoEsquerdo);
+				filhoEsquerdo.setDireito(nodo);
+				filhoEsquerdo.setPai(pai);
+				nodo.setPai(filhoEsquerdo);
+				nodo.setEsquerdo(null);
+			} else {
+				raiz = filhoEsquerdo;
+				filhoEsquerdo.setDireito(nodo);
+				filhoEsquerdo.setPai(null);
+				nodo.setEsquerdo(null);
+			}
+		} else {
+			if (pai != null) {
+				NodoAVL direito = filhoEsquerdo.getDireito();
+				pai.setEsquerdo(filhoEsquerdo);
+				filhoEsquerdo.setDireito(nodo);
+				filhoEsquerdo.setPai(pai);
+				nodo.setPai(filhoEsquerdo);
+				nodo.setEsquerdo(direito);
+			} else {
+				NodoAVL direito = filhoEsquerdo.getDireito();
+				raiz = filhoEsquerdo;
+				filhoEsquerdo.setDireito(nodo);
+				filhoEsquerdo.setPai(null);
+				nodo.setEsquerdo(direito);
+			}
+		}
+	}
+
+	private void rotacaoDuplaEsquerda(NodoAVL nodo) {
+		rotacaoDireita(nodo.getDireito());
+		rotacaoEsquerda(nodo);
+
+	}
+
+	private void rotacaoEsquerda(NodoAVL nodo) {
+		NodoAVL filhoDireito = nodo.getDireito();
+		NodoAVL pai = nodo.getPai();
+		if (filhoDireito.getEsquerdo() == null) {
+			if (pai != null) {
+				pai.setDireito(filhoDireito);
+				filhoDireito.setEsquerdo(nodo);
+				filhoDireito.setPai(pai);
+				nodo.setPai(filhoDireito);
+				nodo.setDireito(null);
+			} else {
+				raiz = filhoDireito;
+				filhoDireito.setEsquerdo(nodo);
+				filhoDireito.setPai(null);
+				nodo.setDireito(null);
+			}
+		} else {
+			if (pai != null) {
+				NodoAVL esquerdo = filhoDireito.getEsquerdo();
+				pai.setDireito(filhoDireito);
+				filhoDireito.setEsquerdo(nodo);
+				filhoDireito.setPai(pai);
+				nodo.setPai(filhoDireito);
+				nodo.setDireito(esquerdo);
+			} else {
+				NodoAVL esquerdo = filhoDireito.getEsquerdo();
+				raiz = filhoDireito;
+				filhoDireito.setEsquerdo(nodo);
+				filhoDireito.setPai(null);
+				nodo.setDireito(esquerdo);
+			}
 		}
 	}
 
