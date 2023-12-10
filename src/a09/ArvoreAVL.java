@@ -292,7 +292,12 @@ public class ArvoreAVL {
 	public void remove(Comparable info) {
 		NodoAVL nodo = busca(info);
 		if (nodo != null) {
+			NodoAVL pai = nodo.getPai();
 			remove(nodo);
+			while (pai != null) {
+				balancear(pai);
+				pai = pai.getPai();
+			}
 		}
 	}
 
