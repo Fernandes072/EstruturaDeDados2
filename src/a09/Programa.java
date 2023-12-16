@@ -25,19 +25,22 @@ public class Programa {
 		 * arvore.adiciona(0.3f); System.out.println(arvore);
 		 */
 		
-		arvore.adiciona(50f);
+		arvore.adiciona(5f);
+		arvore.adiciona(3f);
+		arvore.adiciona(8f);
+		arvore.adiciona(2f);
+		arvore.adiciona(4f);
+		arvore.adiciona(7f);
+		arvore.adiciona(10f);
+		arvore.adiciona(1f);
+		arvore.adiciona(6f);
+		arvore.adiciona(9f);
+		arvore.adiciona(11f);
 		System.out.println(arvore);
 		
-		arvore.adiciona(60f);
-		System.out.println(arvore);
-		
-		arvore.adiciona(55f);
-		System.out.println(arvore);
-		
-		arvore.adiciona(70f);
-		System.out.println(arvore);
-		
-		arvore.adiciona(65f);
+		arvore.remove(4f);
+		arvore.remove(8f);
+		arvore.remove(6f);
 		System.out.println(arvore);
 
 	}

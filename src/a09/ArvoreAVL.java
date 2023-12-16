@@ -65,14 +65,14 @@ public class ArvoreAVL {
 		int fator = nodo.getFator();
 		if (fator == 2) { // Desbalanceado para a direita;
 			// Balancear
-			if (nodo.getDireito().getFator() > 0) {
+			if (nodo.getDireito().getFator() >= 0) {
 				rotacaoEsquerda(nodo);
 			} else {
 				rotacaoDuplaEsquerda(nodo);
 			}
 		} else if (fator == -2) { // Desbalanceado para a esquerda;
 			// Balancear
-			if (nodo.getEsquerdo().getFator() < 0) {
+			if (nodo.getEsquerdo().getFator() <= 0) {
 				rotacaoDireita(nodo);
 			} else {
 				rotacaoDuplaDireita(nodo);
@@ -335,7 +335,7 @@ public class ArvoreAVL {
 				nodo.setPai(null);
 			}
 		} else {
-			NodoAVL escolhido = nodo.getDireito().getMenor();
+			NodoAVL escolhido = nodo.getEsquerdo().getMaior();
 			remove(escolhido);
 			troca(nodo, escolhido);
 			if (nodo == raiz) {
@@ -348,7 +348,13 @@ public class ArvoreAVL {
 		// Troca as referêncis do nodo antigo pelo novo
 		novo.setPai(velho.getPai());
 		novo.setEsquerdo(velho.getEsquerdo());
+		if (velho.getEsquerdo() != null) {
+			velho.getEsquerdo().setPai(novo);
+		}
 		novo.setDireito(velho.getDireito());
+		if (velho.getDireito() != null) {
+			velho.getDireito().setPai(novo);
+		}
 
 		// Se o nodo velho tem pai, troca as referências do pai tb
 		if (velho.getPai() != null) {
