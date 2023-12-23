@@ -1,9 +1,9 @@
-package a10.EspalhamentoGenerics;
+package a10.p01;
 
 public class Programa {
 
 	public static void main(String[] args) {
-		TabelaEspalhamento<Object> tabela = new TabelaEspalhamento<Object>();
+		TabelaEspalhamento tabela = new TabelaEspalhamento();
 		System.out.println(tabela);
 		
 		tabela.adiciona("Açaí");

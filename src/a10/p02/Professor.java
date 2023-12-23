@@ -1,4 +1,4 @@
-package a10.EspalhamentoGenerics;
+package a10.p02;
 
 public class Professor {
 	
