@@ -1,4 +1,4 @@
-package atividade;
+package atividade.arvoretrie;
 
 public class NodoTrie {
 	

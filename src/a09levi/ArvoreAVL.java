@@ -134,6 +134,7 @@ public class ArvoreAVL {
 		NodoAVL nodo = busca(info);
 		NodoAVL pai = nodo.getPai();
 		if (nodo != null) {
+			tamanho--;
 			remove(nodo);
 			balancearPais(pai);
 		}
@@ -154,7 +155,7 @@ public class ArvoreAVL {
 
 	private void remove(NodoAVL nodo) {
 		if (nodo.getEsquerdo() == null && nodo.getDireito() == null) {
-			// Os dois filhos s�o nulos
+			// Os dois filhos são nulos
 			if (nodo == raiz) {
 				raiz = null;
 			} else {
@@ -167,7 +168,7 @@ public class ArvoreAVL {
 				nodo.setPai(null);
 			}
 		} else if (nodo.getEsquerdo() == null || nodo.getDireito() == null) {
-			// Um deles � nulo
+			// Um deles é nulo
 			NodoAVL filho;
 			if (nodo.getEsquerdo() != null) {
 				filho = nodo.getEsquerdo();
@@ -189,7 +190,7 @@ public class ArvoreAVL {
 				nodo.setPai(null);
 			}
 		} else {
-			// Nenhum dos dois � nulo
+			// Nenhum dos dois é nulo
 			// Escolhe um lado (nesse caso, o esquerdo) e pega o maior ou o menor
 			NodoAVL escolhido = nodo.getEsquerdo().getMaior();
 //			NodoAVL escolhido = nodo.getDireito().getMenor();
@@ -202,7 +203,7 @@ public class ArvoreAVL {
 	}
 
 	private void troca(NodoAVL velho, NodoAVL novo) {
-		// Troca as refer�ncis do nodo antigo pelo novo
+		// Troca as referêncis do nodo antigo pelo novo
 		novo.setPai(velho.getPai());
 		novo.setEsquerdo(velho.getEsquerdo());
 		if (velho.getEsquerdo() != null) {
@@ -213,7 +214,7 @@ public class ArvoreAVL {
 			velho.getDireito().setPai(novo);
 		}
 
-		// Se o nodo velho tem pai, troca as refer�ncias do pai tb
+		// Se o nodo velho tem pai, troca as referências do pai tb
 		if (velho.getPai() != null) {
 			if (velho.getPai().getEsquerdo() == velho) {
 				velho.getPai().setEsquerdo(novo);

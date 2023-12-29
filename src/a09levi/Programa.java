@@ -3,52 +3,19 @@ package a09levi;
 public class Programa {
 
 	public static void main(String[] args) {
-//		// Rota��o simples
-//		ArvoreAVL arvore1 = new ArvoreAVL();
-//		arvore1.adiciona(8);
-//		arvore1.adiciona(4);
-//		arvore1.adiciona(10);
-//		arvore1.adiciona(2);
-//		arvore1.adiciona(6);
-//		arvore1.adiciona(3);
-//		System.out.println(arvore1);
-//
-//		// Rota��o dupla
-//		ArvoreAVL arvore2 = new ArvoreAVL();
-//		arvore2.adiciona(8);
-//		arvore2.adiciona(4);
-//		arvore2.adiciona(10);
-//		arvore2.adiciona(2);
-//		arvore2.adiciona(6);
-//		arvore2.adiciona(7);
-//		System.out.println(arvore2);
-//		// Rota��o dupla
-
-		ArvoreAVL arvore3 = new ArvoreAVL();
-		arvore3.adiciona(50);
-		arvore3.adiciona(25);
-		arvore3.adiciona(70);
-		arvore3.adiciona(10);
-		arvore3.adiciona(30);
-		System.out.println(arvore3);
-		arvore3.remove(70);
-		System.out.println(arvore3);
-
-		ArvoreAVL arvore4 = new ArvoreAVL();
-		arvore4.adiciona(5);
-		arvore4.adiciona(3);
-		arvore4.adiciona(8);
-		arvore4.adiciona(2);
-		arvore4.adiciona(4);
-		arvore4.adiciona(7);
-		arvore4.adiciona(10);
-		arvore4.adiciona(1);
-		arvore4.adiciona(6);
-		arvore4.adiciona(9);
-		arvore4.adiciona(11);
-		System.out.println(arvore4);
-		arvore4.remove(4);
-		System.out.println(arvore4);
+		ArvoreAVL arvore = new ArvoreAVL();
+		arvore.adiciona("carro1");
+		arvore.adiciona("carro2");
+		arvore.adiciona("carro3");
+		arvore.adiciona("carro4");
+		arvore.adiciona("carro5");
+		arvore.adiciona("carro6");
+		arvore.adiciona("carro7");
+		arvore.adiciona("carro8");
+		System.out.println(arvore);
+		
+		arvore.remove("carro4");
+		System.out.println(arvore);
 	}
 
 }

@@ -1,6 +1,6 @@
-package atividade;
+package atividade.arvoretrie;
 
-public class ProgramaTrie {
+public class Programa {
 	
 	public static void main(String[] args) {
 		ArvoreTrie arvore = new ArvoreTrie();

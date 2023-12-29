@@ -1,4 +1,4 @@
-package atividade;
+package atividade.arvoretrie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
