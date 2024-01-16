@@ -21,8 +21,10 @@ public class ArvoreTrie {
 
 	private void adiciona(String chave, Object valor, NodoTrie nodo, int posicao) {
 		if (posicao == chave.length()) {
+			if(nodo.getValor() == null) {
+				tamanho++;
+			}
 			nodo.setValor(valor);
-			tamanho++;
 		} else {
 			char letra = chave.charAt(posicao);
 			NodoTrie filho = nodo.getFilho(letra);
